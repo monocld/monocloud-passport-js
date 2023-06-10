@@ -1,0 +1,57 @@
+{
+  "name": "@monocld/passport-js",
+  "version": "0.0.1",
+  "description": "MonoCloud Passport Javascript SDK.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MonoCld/monocloud-passport-js.git"
+  },
+  "keywords": [
+    "monocloud",
+    "passport",
+    "sdk",
+    "node"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "MonoCloud",
+    "email": "support@monocloud.com"
+  },
+  "bugs": {
+    "url": "https://github.com/MonoCld/monocloud-passport-js/issues"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "homepage": "https://www.monocloud.com",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "lint:es": "eslint src --fix --quiet",
+    "lint:ts": "tsc",
+    "lint": "npm run lint:es && npm run lint:ts"
+  },
+  "dependencies": {
+    "passport": "^0.6.0",
+    "passport-openidconnect": "0.1.1"
+  },
+  "devDependencies": {
+    "@types/flat": "5.0.2",
+    "@types/node": "^16.18.23",
+    "@typescript-eslint/eslint-plugin": "5.57.1",
+    "@typescript-eslint/parser": "5.57.1",
+    "eslint": "8.38.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-unused-imports": "2.0.0",
+    "prettier": "2.8.7",
+    "rimraf": "4.4.1",
+    "typescript": "5.0.4"
+  },
+  "engines": {
+    "node": ">= 11.0.0"
+  }
+}
