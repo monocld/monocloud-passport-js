@@ -1,5 +1,5 @@
 {
-  "name": "@monocld/passport-js",
+  "name": "@monocloud/passport-js",
   "version": "0.0.1",
   "description": "MonoCloud Passport Javascript SDK.",
   "repository": {
