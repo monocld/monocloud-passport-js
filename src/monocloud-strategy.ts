@@ -93,24 +93,12 @@ export class MonoCloudStrategy<TProfile = UserProfile> extends Strategy<
       | StrategyVerifyCallbackReq<TProfile>
       | StrategyVerifyCallbackReqUserInfo<TProfile>
   ): MonoCloudStrategy<TProfile> {
-    let acrValues: string | undefined;
-
-    if (config.acrValues && typeof config.acrValues === 'object') {
-      const acrValuesList = Object.entries(config.acrValues)
-        .filter(kv => kv[1] !== undefined || kv[1] !== null)
-        .map(kv => `${kv[0]}:${kv[1]}`);
-
-      acrValues = acrValuesList.join(' ');
-    }
-
     return new MonoCloudStrategy<TProfile>(
       {
         client,
         usePKCE: config.usePkce,
         params: {
           scope: config.scope,
-          acr_values: acrValues,
-          prompt: config.prompt,
         },
         sessionKey: `monocloud:${client.issuer.metadata.issuer}`,
         postLogOutRedirectURL: config.postLogOutRedirectUrl,
