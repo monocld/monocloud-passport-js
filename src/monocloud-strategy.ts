@@ -38,7 +38,12 @@ export class MonoCloudStrategy<TProfile = UserProfile> extends Strategy<
   }
 
   public static init<TProfile = UserProfile>(
-    config: MonoCloudClientConfig
+    config: MonoCloudClientConfig,
+    verify?:
+      | StrategyVerifyCallback<TProfile>
+      | StrategyVerifyCallbackUserInfo<TProfile>
+      | StrategyVerifyCallbackReq<TProfile>
+      | StrategyVerifyCallbackReqUserInfo<TProfile>
   ): MonoCloudStrategy<TProfile> {
     if (!config.issuer) {
       throw new Error('Issuer not configured');
@@ -91,21 +96,25 @@ export class MonoCloudStrategy<TProfile = UserProfile> extends Strategy<
         },
         sessionKey: `monocloud:${client.issuer.metadata.issuer}`,
       },
-      (
-        tokenSet: TokenSet,
-        userinfo: UserinfoResponse<any, any>,
-        done: (err: any, user?: TProfile) => void
-      ): void => {
-        const profile: UserProfile = {};
+      verify ??
+        ((
+          tokenSet: TokenSet,
+          userinfo: UserinfoResponse<any, any>,
+          done: (err: any, user?: TProfile) => void
+        ): void => {
+          const profile: UserProfile = {};
 
-        if (tokenSet.id_token) {
-          profile.id_token = { ...tokenSet.claims(), token: tokenSet.id_token };
-        }
+          if (tokenSet.id_token) {
+            profile.id_token = {
+              ...tokenSet.claims(),
+              token: tokenSet.id_token,
+            };
+          }
 
-        profile.user_info = userinfo;
+          profile.user_info = userinfo;
 
-        return done(null, profile as any);
-      }
+          return done(null, profile as any);
+        })
     );
   }
 
